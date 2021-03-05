@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class validator extends Thread {
     public static void main(String[] args){
         int[][] soduku = new int[9][9];
+        //input parsing (converting file to 2d array)
         try{
             File file = new File("tester.txt");
             Scanner reader = new Scanner(file);
