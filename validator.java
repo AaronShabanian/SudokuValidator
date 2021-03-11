@@ -7,6 +7,7 @@ import java.util.List;
 public class validator extends Thread {
     public static int rowErrors=-1;
     public static int columnErrors=-1;
+    public static int boxnum=-1;
     public static void main(String[] args){
         int[][] soduku = new int[9][9];
         //input parsing (converting file to 2d array)
@@ -96,6 +97,123 @@ public class validator extends Thread {
         return -1;
     }
     public static void boxes(int[][] arr){
-
+        ArrayList <Integer> singleBox = new ArrayList(9);
+        int boxnumtemp=1;
+        //checks each box individually
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=0; i<3; i++){
+            for(int j=3; j<6; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=0; i<3; i++){
+            for(int j=6; j<9; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=3; i<6; i++){
+            for(int j=0; j<3; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=3; i<6; i++){
+            for(int j=3; j<6; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=3; i<6; i++){
+            for(int j=6; j<9; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=6; i<9; i++){
+            for(int j=0; j<3; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=6; i<9; i++){
+            for(int j=3; j<6; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
+        singleBox.clear();
+        boxnumtemp++;
+        for(int i=6; i<9; i++){
+            for(int j=3; j<6; j++){
+                if(singleBox.contains(arr[i][j])){
+                    boxnum=boxnumtemp;
+                }
+                else{
+                    singleBox.add(arr[i][j]);
+                }
+                
+            }
+        }
     }
 }
