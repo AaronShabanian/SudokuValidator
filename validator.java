@@ -107,7 +107,7 @@ public class validator extends Thread {
         for(int i =1; i<10; i++){
             for(int j=0; j<9; j++){
                 if(i==arr[j]){
-                    break;
+                    j=50;
                 }
                 else if(j==8){
                     return i;
