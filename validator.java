@@ -89,9 +89,6 @@ public class validator extends Thread {
                 }
             }
         }
-        System.out.println(rowErrors);
-        System.out.println(columnErrors);
-        System.out.println(boxErrors);
         // Comparing columns to boxes
         for(int i=0; i<columnErrors.size(); i++){
             for(int j=0; j<boxErrors.size(); j++){
@@ -103,7 +100,15 @@ public class validator extends Thread {
             }
         }
         System.out.println("Confirmed Errors are");
-        System.out.println(confirmedErrors);
+        String errorString="";
+        int rows=-1;
+        int columns=-1;
+        for(int i=0; i<confirmedErrors.size(); i++){
+            errorString=confirmedErrors.get(i);
+            rows=Integer.parseInt(errorString.substring(0,1))+1;
+            columns=Integer.parseInt(errorString.substring(1,2))+1;
+            System.out.println("Row:"+rows+ " Column:"+columns+ " Should be: "+errorString.substring(2));
+        }
     }
     
     //This function is called when an error is found and it wants to find which number is missing
