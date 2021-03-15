@@ -11,6 +11,9 @@ public class validator extends Thread {
     public static ArrayList <String> columnErrors=new ArrayList<>(2);
     public static ArrayList <String> boxErrors=new ArrayList<>(2);
     public static ArrayList <String> confirmedErrors=new ArrayList<>(2);
+    // The following 2 lines are for the edge case of case 5 as there is 2 missing numbers in the same row
+    public static ArrayList <String> confirmedcoordinates=new ArrayList<>(2);
+    public static int secondMissingNum;
     public static void main(String[] args){
         int[][] soduku = new int[9][9];
         //input parsing (converting file to 2d array)
@@ -68,17 +71,19 @@ public class validator extends Thread {
         //Comparing rows to columns
         for(int i=0; i<rowErrors.size(); i++){
             for(int j=0; j<columnErrors.size(); j++){
-                if((rowErrors.get(i)).equals(columnErrors.get(i))){
-                    if(!confirmedErrors.contains(rowErrors.get(i))){
+                if((rowErrors.get(i)).equals(columnErrors.get(j))){
+                    if((!confirmedErrors.contains(rowErrors.get(i)))&&(!confirmedcoordinates.contains(rowErrors.get(i).substring(0,2)))){
                         confirmedErrors.add(rowErrors.get(i));
+                        confirmedcoordinates.add(rowErrors.get(i).substring(0,2));
                     }
                 }
             }
         }
+        //Comparing rows to boxes
         for(int i=0; i<rowErrors.size(); i++){
             for(int j=0; j<boxErrors.size(); j++){
-                if((rowErrors.get(i)).equals(boxErrors.get(j))){
-                    if(!confirmedErrors.contains(rowErrors.get(i))){
+                if(rowErrors.get(i).equals(boxErrors.get(j))){
+                    if((!confirmedErrors.contains(rowErrors.get(i)))&&(!confirmedcoordinates.contains(rowErrors.get(i).substring(0,2)))){
                         confirmedErrors.add(rowErrors.get(i));
                     }
                 }
@@ -87,10 +92,11 @@ public class validator extends Thread {
         System.out.println(rowErrors);
         System.out.println(columnErrors);
         System.out.println(boxErrors);
+        // Comparing columns to boxes
         for(int i=0; i<columnErrors.size(); i++){
             for(int j=0; j<boxErrors.size(); j++){
                 if((columnErrors.get(i)).equals(boxErrors.get(j))){
-                    if(!confirmedErrors.contains(columnErrors.get(i))){
+                    if((!confirmedErrors.contains(columnErrors.get(i)))&&(!confirmedcoordinates.contains(columnErrors.get(i).substring(0,2)))){
                         confirmedErrors.add(columnErrors.get(i));
                     }
                 }
@@ -102,17 +108,24 @@ public class validator extends Thread {
     
     //This function is called when an error is found and it wants to find which number is missing
     public static int missingNumber(int[] arr){
+        int checker=0;
+        int firstNum=-1;
         for(int i =1; i<10; i++){
             for(int j=0; j<9; j++){
                 if(i==arr[j]){
                     j=50;
                 }
-                else if(j==8){
-                    return i;
+                else if(j==8 && checker==0){
+                    firstNum=i;
+                    checker++;
+                }
+                else if(j==8 && checker==1){
+                    //gets the second missing number if there are 2
+                    secondMissingNum=i;
                 }
             }
         }
-        return -1;
+        return firstNum;
 
     }
     public static void rows(int[][] arr){
@@ -131,9 +144,11 @@ public class validator extends Thread {
                     missingNum=Integer.toString(missingNumber(arr[i]));
                     //adds row and column of error to universal arraylist to be compared later
                     rowErrors.add(row+column+missingNum);
+                    rowErrors.add(row+column+secondMissingNum);
                     for(int k=0; k<oneRow.size(); k++){
                         if(oneRow.get(k)==arr[i][j]){
                             rowErrors.add(onerowcoordinates.get(k)+missingNum);
+                            rowErrors.add(onerowcoordinates.get(k)+secondMissingNum);
                         }
                     }
                 }
